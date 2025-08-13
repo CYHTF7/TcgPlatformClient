@@ -28,7 +28,7 @@ public class CollectionLoader : MonoBehaviour
     {
         if (CardDataStorage.Instance == null)
         {
-            Debug.LogError("Error! CardDataStorage.Instance not set!");
+            Debug.LogWarning("CardDataStorage.Instance not set!");
             return;
         }
 

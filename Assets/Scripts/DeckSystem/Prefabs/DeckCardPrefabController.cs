@@ -49,25 +49,31 @@ public class DeckCardPrefabController : MonoBehaviour, IPointerClickHandler
         _deckCardNameText.text = $"x{Quantity} {cardNameText}";
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public async void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            var request = new DeckCardDTO
+            try 
             {
-                deckId = _deckId,
-                cardId = _cardId,
-                quantity = 1
-            };
-
-            ApiClient.RemoveCardFromDeckAsync(request)
-            .ContinueWith(task =>
-            {
-                if (task.IsCompletedSuccessfully)
+                var request = new DeckCardDTO
                 {
-                    OnCardChanged?.Invoke(_deckId);
+                    deckId = _deckId,
+                    cardId = _cardId,
+                    quantity = 1
+                };
+
+                await ApiClient.RemoveCardFromDeckAsync(request);
+
+                var editor = FindObjectOfType<DeckUIEditorController>();
+                if (editor != null)
+                {
+                    editor.RefreshDeck(_deckId);
                 }
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Add card failed: {ex.Message}");
+            }
         }
     }
 }

@@ -289,8 +289,8 @@ GameObject:
   - component: {fileID: 7792049710766565261}
   - component: {fileID: 4311931012370181713}
   - component: {fileID: 4451193307187108133}
-  - component: {fileID: 3552108925540541022}
-  - component: {fileID: 5744683234379866012}
+  - component: {fileID: 4238239724710062870}
+  - component: {fileID: 7152483594545386522}
   m_Layer: 5
   m_Name: CardCount
   m_TagString: Untagged
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverSortingOrder: 1000
---- !u!225 &3552108925540541022
+--- !u!225 &4238239724710062870
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -424,7 +424,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5744683234379866012
+--- !u!114 &7152483594545386522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

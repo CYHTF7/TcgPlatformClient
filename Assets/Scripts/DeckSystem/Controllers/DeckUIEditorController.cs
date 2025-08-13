@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Linq;
+using UnityEngine.Events;
+using System.Threading.Tasks;
 
 public class DeckUIEditorController : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class DeckUIEditorController : MonoBehaviour
     [Header("Logic References")]
     [SerializeField] private DeckUIController _deckUIController;
     [SerializeField] private DeckListController _deckListController;
+
+    [Header("Deck Data")]
+    [SerializeField]
+    public int currentDeckId;
 
     private void Awake()
     {
@@ -35,6 +41,10 @@ public class DeckUIEditorController : MonoBehaviour
             Debug.LogError("DeckUIEditorController: deck is null!");
             return;
         }
+
+        currentDeckId = deck.DeckId;
+
+        Debug.Log($"Was set currentDeckId: {currentDeckId}");
 
         _deckUIController.ShowDeckEditorPanel();
 
@@ -66,23 +76,12 @@ public class DeckUIEditorController : MonoBehaviour
         }
     }
 
-    //REFRESH EVENTS
-
-    private void OnEnable()
-    {
-        DeckCardPrefabController.OnCardChanged += HandleCardRemoved;
-    }
-
-    private void OnDisable()
-    {
-        DeckCardPrefabController.OnCardChanged -= HandleCardRemoved;
-    }
-
-    private async void HandleCardRemoved(int deckId)
+    //REFRESH
+    public async void RefreshDeck(int deckId)
     {
         try
         {
-            await ApiClient.LoadDecksAsync();
+            await _deckListController.UpdateDeckListAsync();
 
             var updatedDeck = PlayerData.Instance.playerDecks
                 .FirstOrDefault(d => d.DeckId == deckId);
@@ -92,7 +91,6 @@ public class DeckUIEditorController : MonoBehaviour
                 DisplayDeckContent(updatedDeck);
             }
 
-            _deckListController.LoadDeckList();
         }
         catch (Exception ex)
         {

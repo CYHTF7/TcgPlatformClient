@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Cards;
+using UnityEngine.Events;
 
 public class CardLoader : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class CardLoader : MonoBehaviour
     {
         cardId = id;
         LoadCardData();
+        Debug.Log($"Was set cardId for prefab: {cardId}");
     }
 
     public void SetCardCountId(int id)
