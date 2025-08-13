@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 public class CardHoverShadowScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private Image image; 
-    private Shadow shadowEffect; 
+    private Image image;
+    private Shadow shadowEffect;
 
-    public Color shadowColor = new Color(0, 0, 0, 0.5f); 
-    public Vector2 shadowDistance = new Vector2(5, -5);  
+    public Color shadowColor = new Color(0, 0, 0, 0.5f);
+    public Vector2 shadowDistance = new Vector2(5, -5);
 
-    private Vector3 originalScale; 
+    private Vector3 originalScale;
 
     private void Start()
     {
@@ -18,12 +18,13 @@ public class CardHoverShadowScale : MonoBehaviour, IPointerEnterHandler, IPointe
 
         if (image == null)
         {
-            Debug.LogError("Shadow can't find image!");
+            Debug.LogError("CardHoverShadowScale: Shadow can't find image!");
         }
 
         originalScale = transform.localScale;
     }
 
+    //event
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (image != null && shadowEffect == null)
@@ -38,12 +39,28 @@ public class CardHoverShadowScale : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        RemoveShadowAndScale();
+    }
+
+    //when switch
+    private void OnDisable()
+    {
+        RemoveShadowAndScale();
+    }
+
+    private void RemoveShadowAndScale()
+    {
         if (shadowEffect != null)
         {
             Destroy(shadowEffect);
         }
-
         transform.localScale = originalScale;
     }
+
+    private void OnEnable()
+    {
+        originalScale = transform.localScale;
+    }
 }
+
 

@@ -128,18 +128,18 @@ public class PlayerData : MonoBehaviour
             return;
         }
 
-        if (update == false) 
+        if (update == false)
         {
             playerCards.Clear();
             cardQuantities.Clear();
         }
 
         foreach (var dbCard in cards)
-        {   
+        {
             var combinedCard = CardDataStorage.Instance.combinedCardList
                 .FirstOrDefault(card => card.CardId == dbCard.id);
 
-            if (combinedCard != null) 
+            if (combinedCard != null)
             {
                 if (!playerCards.Contains(combinedCard))
                 {
@@ -168,7 +168,7 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public void SetUserDeckData(List<DeckLoadDTO> decks, bool update)
+    public void SetUserDeckData(List<DeckLoadDTO> decks)
     {
         if (Instance == null)
         {
@@ -176,14 +176,11 @@ public class PlayerData : MonoBehaviour
             return;
         }
 
-        if (!update)
-        {
-            playerDecks.Clear();
-        }
+        playerDecks.Clear();
 
         foreach (var deckDTO in decks)
         {
-            Deck newDeck = new Deck
+            var deck = new Deck
             {
                 DeckId = deckDTO.deckId,
                 DeckName = deckDTO.deckName,
@@ -193,12 +190,12 @@ public class PlayerData : MonoBehaviour
 
             foreach (var cardDTO in deckDTO.cards)
             {
-                var foundCard = CardDataStorage.Instance.combinedCardList
+                var foundCard = CardDataStorage.Instance.combinedCardList?
                     .FirstOrDefault(c => c.CardId == cardDTO.cardId);
 
                 if (foundCard != null)
                 {
-                    newDeck.Cards.Add(new DeckCard
+                    deck.Cards.Add(new DeckCard
                     {
                         CardId = foundCard.id,
                         Quantity = cardDTO.quantity
@@ -206,12 +203,55 @@ public class PlayerData : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning($"Card with ID {cardDTO.cardId} not found in combinedCardList!");
+                    Debug.LogWarning($"Card ID {cardDTO.cardId} not found!");
                 }
             }
 
-            playerDecks.Add(newDeck);
-            Debug.Log($"Loaded deck '{newDeck.DeckName}' with {newDeck.Cards.Count} cards.");
+            playerDecks.Add(deck);
         }
+
+        Debug.Log($"Updated decks. Total: {playerDecks.Count}");
     }
 }
+
+//public void SetUserDeckData(List<DeckLoadDTO> decks) mat be like this?
+//{
+//    if (Instance == null)
+//    {
+//        Debug.LogError("PlayerData.Instance is null!");
+//        return;
+//    }
+
+//    var newDecks = new List<Deck>(decks.Count);
+
+//    foreach (var deckDTO in decks)
+//    {
+//        var deck = new Deck
+//        {
+//            DeckId = deckDTO.deckId,
+//            DeckName = deckDTO.deckName,
+//            PlayerId = deckDTO.playerId,
+//            Cards = new List<DeckCard>(deckDTO.cards.Count)
+//        };
+
+//        foreach (var cardDTO in deckDTO.cards)
+//        {
+//            var foundCard = CardDataStorage.Instance.combinedCardList?
+//                .FirstOrDefault(c => c.CardId == cardDTO.cardId);
+
+//            if (foundCard != null)
+//            {
+//                deck.Cards.Add(new DeckCard
+//                {
+//                    CardId = foundCard.id,
+//                    Quantity = cardDTO.quantity
+//                });
+//            }
+//        }
+//        newDecks.Add(deck);
+//    }
+
+//    playerDecks = newDecks;
+
+//    Debug.Log($"Updated {playerDecks.Count} decks");
+//} 

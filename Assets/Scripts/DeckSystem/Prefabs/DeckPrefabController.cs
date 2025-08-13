@@ -3,11 +3,10 @@ using UnityEngine.EventSystems;
 using TMPro;
 
 
-public class DeckPrefabController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class DeckPrefabController : MonoBehaviour, IPointerClickHandler
 {
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI _deckNameText;
-    [SerializeField] private GameObject _deckRemoveButton;
 
     //Logic References
     private DeckRemoveController _deckRemoveController;
@@ -15,17 +14,9 @@ public class DeckPrefabController : MonoBehaviour, IPointerEnterHandler, IPointe
 
     private Deck _deckData;
 
-    private void Start()
-    {
-        if (_deckRemoveButton != null) 
-        {
-            _deckRemoveButton.SetActive(false);
-        }
-    }
-
     private void Awake()
     {
-        if (_deckNameText == null || _deckRemoveButton == null)
+        if (_deckNameText == null)
         {
             Debug.LogError("DeckPrefabController: Invalid references!");
         }
@@ -62,17 +53,15 @@ public class DeckPrefabController : MonoBehaviour, IPointerEnterHandler, IPointe
         _deckUIEditorController.DisplayDeckContent(_deckData);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        _deckRemoveButton.SetActive(true);
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            ToRemoveDeckPanel();
+        }
     }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        _deckRemoveButton.SetActive(false);
-    }
-
-    public void OnClickRemoveDeckButton()
+    public void ToRemoveDeckPanel()
     {
         if (_deckData == null)
         {
@@ -83,9 +72,10 @@ public class DeckPrefabController : MonoBehaviour, IPointerEnterHandler, IPointe
         var dto = new DeckRemoveDTO
         {
             deckId = _deckData.DeckId,
-            //playerId = PlayerData.Instance.Id
         };
 
-        _deckRemoveController.ReciveDeckToRemove(dto);
+        var deckName = _deckData;
+
+        _deckRemoveController.ReciveDeckToRemove(dto, _deckData);
     }
 }

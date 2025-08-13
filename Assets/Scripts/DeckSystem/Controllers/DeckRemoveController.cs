@@ -8,6 +8,7 @@ public class DeckRemoveController : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private Button _deckRemoveButton;
+    [SerializeField] private TextMeshProUGUI _deckNameText;
 
     [Header("Logic References")]
     [SerializeField] private DeckListController _deckListController;
@@ -23,11 +24,12 @@ public class DeckRemoveController : MonoBehaviour
         }
     }
 
-    public void ReciveDeckToRemove(DeckRemoveDTO deck)
+    public void ReciveDeckToRemove(DeckRemoveDTO deck, Deck deckName)
     {
         deckToRemove = deck;
 
         _deckUIController.ShowDeckRemovePanel();
+        _deckNameText.text =  $"Remove Deck: {deckName.DeckName}?";
     }
 
     public void BackButton()

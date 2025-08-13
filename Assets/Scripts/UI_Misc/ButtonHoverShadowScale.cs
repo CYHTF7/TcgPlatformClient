@@ -10,7 +10,7 @@ public class ButtonHoverShadowScale : MonoBehaviour, IPointerEnterHandler, IPoin
     public Color shadowColor = new Color(0, 0, 0, 0.5f); 
     public Vector2 shadowDistance = new Vector2(10, -10);  
 
-    private Vector3 originalScale; 
+    private Vector3 originalScale;
 
     private void Start()
     {
@@ -18,12 +18,13 @@ public class ButtonHoverShadowScale : MonoBehaviour, IPointerEnterHandler, IPoin
 
         if (image == null)
         {
-            Debug.LogError("Shadow can't find image!");
+            Debug.LogError("ButtonHoverShadowScale: Shadow can't find image!");
         }
 
         originalScale = transform.localScale;
     }
 
+    //event
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (image != null && shadowEffect == null)
@@ -38,12 +39,27 @@ public class ButtonHoverShadowScale : MonoBehaviour, IPointerEnterHandler, IPoin
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        RemoveShadowAndScale();
+    }
+
+    //when switch
+    private void OnDisable()
+    {
+        RemoveShadowAndScale();
+    }
+
+    private void RemoveShadowAndScale()
+    {
         if (shadowEffect != null)
         {
             Destroy(shadowEffect);
         }
-
         transform.localScale = originalScale;
+    }
+
+    private void OnEnable()
+    {
+        originalScale = transform.localScale;
     }
 }
 

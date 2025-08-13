@@ -591,6 +591,40 @@ public static class ApiClient
         }
     }
 
+    //GETDECK not used/tested yet
+    public static async Task<DeckLoadDTO> GetDeckAsync(int deckId)
+    {
+        var url = $"https://localhost:7193/api/deck/getdeck/{deckId}";
+
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", $"Bearer {AuthManager.Instance.AccessToken}");
+
+            try
+            {
+                var operation = request.SendWebRequest();
+                while (!operation.isDone) await Task.Yield();
+
+                if (request.result == UnityWebRequest.Result.Success)
+                {
+                    var deck = JsonConvert.DeserializeObject<DeckLoadDTO>(request.downloadHandler.text);
+                    return deck;
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load deck. Error: {request.error}");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Exception occurred: {ex.Message}");
+                return null;
+            }
+        }
+    }
+
     //DECKSLOAD
     public static async Task LoadDecksAsync()
     {
@@ -629,7 +663,7 @@ public static class ApiClient
 
                     if (PlayerData.Instance.IsLoggedIn)
                     {
-                        PlayerData.Instance.SetUserDeckData(decks, false);
+                        PlayerData.Instance.SetUserDeckData(decks);
                     }
                 }
                 else
@@ -674,7 +708,7 @@ public static class ApiClient
     }
 
     //REMOVEDECKS
-    public static async Task RemoveDecksAsync(List<DeckRemoveDTO> deckRequests) 
+    public static async Task RemoveDecksAsync(List<DeckRemoveDTO> deckRequests)
     {
         var url = "https://localhost:7193/api/deck/removedecks";
         var httpClient = new HttpClient();
@@ -701,4 +735,64 @@ public static class ApiClient
             Debug.LogError($"Request error: {e.Message}");
         }
     }
+
+    //REMOVEDECKCARD
+    public static async Task RemoveCardFromDeckAsync(DeckCardDTO deckCardRequest) 
+    {
+        var url = "https://localhost:7193/api/deckcard/removedeckcard";
+        var httpClient = new HttpClient();
+        string json = JsonConvert.SerializeObject(deckCardRequest);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        httpClient.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", AuthManager.Instance.AccessToken);
+
+        try
+        {
+            var response = await httpClient.PostAsync(url, content);
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.Log("DeckCard removed successfully!");
+            }
+            else
+            {
+                Debug.LogError($"Failed to remove DeckCard: {await response.Content.ReadAsStringAsync()}");
+            }
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+        }
+    }
+
+    //ADDDECKCARD
+    public static async Task AddCardToDeckAsync(DeckCardDTO deckCardRequest)
+    {
+        var url = "https://localhost:7193/api/deckcard/adddeckcard";
+        var httpClient = new HttpClient();
+        string json = JsonConvert.SerializeObject(deckCardRequest);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        httpClient.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", AuthManager.Instance.AccessToken);
+
+        try
+        {
+            var response = await httpClient.PostAsync(url, content);
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.Log("DeckCard added successfully!");
+            }
+            else
+            {
+                Debug.LogError($"Failed to add DeckCard: {await response.Content.ReadAsStringAsync()}");
+            }
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+        }
+    }
+
+
 }

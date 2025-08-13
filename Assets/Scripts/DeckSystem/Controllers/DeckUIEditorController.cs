@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System;
+using System.Linq;
 
 public class DeckUIEditorController : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class DeckUIEditorController : MonoBehaviour
 
     [Header("Logic References")]
     [SerializeField] private DeckUIController _deckUIController;
+    [SerializeField] private DeckListController _deckListController;
 
     private void Awake()
     {
@@ -46,7 +49,7 @@ public class DeckUIEditorController : MonoBehaviour
 
             if (itemUI != null)
             {
-                itemUI.SetCardDeckData(card.CardId, card.Quantity);
+                itemUI.SetCardDeckData(deck.DeckId, card.CardId, card.Quantity);
             }
             else
             {
@@ -60,6 +63,40 @@ public class DeckUIEditorController : MonoBehaviour
         foreach (Transform child in _deckListContent)
         {
             Destroy(child.gameObject);
+        }
+    }
+
+    //REFRESH EVENTS
+
+    private void OnEnable()
+    {
+        DeckCardPrefabController.OnCardChanged += HandleCardRemoved;
+    }
+
+    private void OnDisable()
+    {
+        DeckCardPrefabController.OnCardChanged -= HandleCardRemoved;
+    }
+
+    private async void HandleCardRemoved(int deckId)
+    {
+        try
+        {
+            await ApiClient.LoadDecksAsync();
+
+            var updatedDeck = PlayerData.Instance.playerDecks
+                .FirstOrDefault(d => d.DeckId == deckId);
+
+            if (updatedDeck != null)
+            {
+                DisplayDeckContent(updatedDeck);
+            }
+
+            _deckListController.LoadDeckList();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error refreshing deck: {ex.Message}");
         }
     }
 }

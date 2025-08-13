@@ -44,7 +44,6 @@ public class DeckCreateController : MonoBehaviour
         {
             deckId = 0,
             deckName = _deckNameInputField.text,
-            //playerId = PlayerData.Instance.Id,
             cards = new List<DeckCardLoadDTO>()
         };
 

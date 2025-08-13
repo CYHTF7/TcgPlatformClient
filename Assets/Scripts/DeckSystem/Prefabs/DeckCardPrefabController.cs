@@ -2,12 +2,20 @@ using UnityEngine;
 using Cards;
 using System.Linq;
 using TMPro;
+using UnityEngine.EventSystems;
+using System;
+using System.Threading.Tasks;
 
 
-public class DeckCardPrefabController : MonoBehaviour
+public class DeckCardPrefabController : MonoBehaviour, IPointerClickHandler
 {
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI _deckCardNameText;
+
+    private int _cardId;
+    private int _deckId;
+
+    public static event Action<int> OnCardChanged;
 
     private void Awake()
     {
@@ -17,8 +25,11 @@ public class DeckCardPrefabController : MonoBehaviour
         }
     }
 
-    public void SetCardDeckData(int CardId, int Quantity)
+    public void SetCardDeckData(int DeckId,int CardId, int Quantity)
     {
+        _deckId = DeckId;
+        _cardId = CardId;
+
         if (_deckCardNameText == null)
         {
             return;
@@ -36,5 +47,27 @@ public class DeckCardPrefabController : MonoBehaviour
         string cardNameText = card.cardName;
 
         _deckCardNameText.text = $"x{Quantity} {cardNameText}";
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            var request = new DeckCardDTO
+            {
+                deckId = _deckId,
+                cardId = _cardId,
+                quantity = 1
+            };
+
+            ApiClient.RemoveCardFromDeckAsync(request)
+            .ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    OnCardChanged?.Invoke(_deckId);
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
     }
 }

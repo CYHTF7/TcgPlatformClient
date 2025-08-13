@@ -7,7 +7,7 @@ public class CardLoader : MonoBehaviour
 {
     [Header("Card Data")]
     [SerializeField]
-    private int cardId;
+    public int cardId;
 
     [Header("UI References")]
     public Image cardImage;
@@ -21,6 +21,7 @@ public class CardLoader : MonoBehaviour
         cardId = id;
         LoadCardData();
     }
+
     public void SetCardCountId(int id)
     {
         cardId = id;

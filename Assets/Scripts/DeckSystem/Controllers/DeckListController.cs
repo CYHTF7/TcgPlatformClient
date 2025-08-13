@@ -15,7 +15,7 @@ public class DeckListController : MonoBehaviour
 
     private void Awake()
     {
-        if (_deckPrefab == null || _deckListContent == null || _deckUIController == null) 
+        if (_deckPrefab == null || _deckListContent == null || _deckUIController == null)
         {
             Debug.LogError("DeckListController: Invalid references!");
         }
@@ -51,7 +51,7 @@ public class DeckListController : MonoBehaviour
             var deckGO = Instantiate(_deckPrefab, _deckListContent);
             var deckUI = deckGO.GetComponent<DeckPrefabController>();
 
-            if (deckUI != null) 
+            if (deckUI != null)
             {
                 deckUI.SetDeckReferences(_deckUIEditorController, _deckRemoveController);
                 deckUI.SetDeckData(deck);
@@ -71,7 +71,7 @@ public class DeckListController : MonoBehaviour
         }
     }
 
-    public void OpenCreateDeckPanelButton() 
+    public void OpenCreateDeckPanelButton()
     {
         if (PlayerData.Instance.IsLoggedIn == false)
         {
@@ -81,6 +81,9 @@ public class DeckListController : MonoBehaviour
         _deckUIController.ShowDeckCreatePanel();
     }
 }
+
+
+
 
 
 
