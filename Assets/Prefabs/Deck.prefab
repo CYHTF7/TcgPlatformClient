@@ -56,14 +56,14 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 1
+  m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 20000
+  m_SortingOrder: 9000
   m_TargetDisplay: 0
 --- !u!114 &2157401648014692297
 MonoBehaviour:
@@ -186,7 +186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deckNameText: {fileID: 478663609464889736}
-  _deckRemoveButton: {fileID: 0}
 --- !u!1 &3116571682665502148
 GameObject:
   m_ObjectHideFlags: 0

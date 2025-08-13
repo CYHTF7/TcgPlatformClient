@@ -288,9 +288,9 @@ GameObject:
   - component: {fileID: 2157401648014692297}
   - component: {fileID: 7792049710766565261}
   - component: {fileID: 4311931012370181713}
-  - component: {fileID: 4451193307187108133}
   - component: {fileID: 4238239724710062870}
   - component: {fileID: 7152483594545386522}
+  - component: {fileID: 7020853825762563609}
   m_Layer: 5
   m_Name: CardCount
   m_TagString: Untagged
@@ -399,19 +399,6 @@ MonoBehaviour:
   manaCostText: {fileID: 5263159348519102328}
   healthText: {fileID: 7169494241825375851}
   countText: {fileID: 4825298510670942031}
---- !u!114 &4451193307187108133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2898337482052333675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c73f31237b259044bb76a622f7eb6cab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverSortingOrder: 1000
 --- !u!225 &4238239724710062870
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -436,6 +423,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f9633c1dc863e40a987dcfd3633527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7020853825762563609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2898337482052333675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a81a61683c3a1548b0dbe3aa4662577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hoverSortingOrder: 1000
+  _dragSortingOrder: 10000
+  _dragAlpha: 0.75
 --- !u!1 &5404215180579110639
 GameObject:
   m_ObjectHideFlags: 0
