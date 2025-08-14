@@ -28,7 +28,7 @@ public class PlayerData : MonoBehaviour
 
     public class PlayerProfile
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Nickname { get; set; }
         public int Level { get; set; }
         public int Gold { get; set; }
@@ -52,7 +52,7 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public void SetUserData(/*int id,*/ string nickname, int level, int gold, int experience, string avatarPath, int battlesPlayed)
+    public void SetUserData(string nickname, int level, int gold, int experience, string avatarPath, int battlesPlayed)
     {
         if (PlayerData.Instance == null)
         {
@@ -60,7 +60,6 @@ public class PlayerData : MonoBehaviour
             return;
         }
 
-        //Id = id;
         Nickname = nickname;
         Level = level;
         Gold = gold;
@@ -198,7 +197,8 @@ public class PlayerData : MonoBehaviour
                     deck.Cards.Add(new DeckCard
                     {
                         CardId = foundCard.id,
-                        Quantity = cardDTO.quantity
+                        Quantity = cardDTO.quantity,
+                        Order = cardDTO.order
                     });
                 }
                 else

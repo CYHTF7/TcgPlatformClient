@@ -6,4 +6,5 @@ public class DeckCard
 {
     public int CardId;
     public int Quantity;
+    public int Order;
 }

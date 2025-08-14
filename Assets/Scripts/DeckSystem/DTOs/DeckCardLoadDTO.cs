@@ -6,4 +6,5 @@ public class DeckCardLoadDTO
 {
     public int cardId;
     public int quantity;
+    public int order;
 }

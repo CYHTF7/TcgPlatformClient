@@ -12,8 +12,10 @@ public class DeckCardPrefabController : MonoBehaviour, IPointerClickHandler
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI _deckCardNameText;
 
-    private int _cardId;
-    private int _deckId;
+    public int _cardId { get; private set; }
+    public int _deckId { get; private set; }
+    public int _quantity { get; private set; }
+    public int _order { get; private set; }
 
     public static event Action<int> OnCardChanged;
 
@@ -25,10 +27,12 @@ public class DeckCardPrefabController : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetCardDeckData(int DeckId,int CardId, int Quantity)
+    public void SetCardDeckData(int DeckId,int CardId, int Quantity, int Order)
     {
         _deckId = DeckId;
         _cardId = CardId;
+        _quantity = Quantity;
+        _order = Order;
 
         if (_deckCardNameText == null)
         {

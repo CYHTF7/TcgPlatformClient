@@ -794,11 +794,15 @@ public static class ApiClient
         }
     }
 
-    public static async Task UpdateDeckCardOrderAsync(DeckCardOrderRequest deckCardOrderRequest)
+    public static async Task UpdateDeckCardsOrderAsync(List<DeckCardOrderRequest> deckCardOrderRequest)
     {
-        var url = "https://localhost:7193/api/deckcard/updatedeckcardorder";
-        var httpClient = new HttpClient();
+        var url = "https://localhost:7193/api/deckcard/updatedeckcardsorder";
+        var httpClient = new HttpClient();    
+
         string json = JsonConvert.SerializeObject(deckCardOrderRequest);
+
+        Debug.Log($"Request JSON: {json}");
+
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
         httpClient.DefaultRequestHeaders.Authorization =
@@ -806,10 +810,14 @@ public static class ApiClient
 
         try
         {
+            Debug.Log("Sending request to server...");
+
             var response = await httpClient.PostAsync(url, content);
             if (response.IsSuccessStatusCode)
             {
                 Debug.Log("DeckCard order updated successfully!");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.Log($"Server response: {responseContent}");
             }
             else
             {

@@ -59,7 +59,7 @@ public class DeckUIEditorController : MonoBehaviour
 
             if (itemUI != null)
             {
-                itemUI.SetCardDeckData(deck.DeckId, card.CardId, card.Quantity);
+                itemUI.SetCardDeckData(deck.DeckId, card.CardId, card.Quantity, card.Order);
             }
             else
             {
