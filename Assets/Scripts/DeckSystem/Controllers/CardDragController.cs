@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -25,11 +27,22 @@ public class CardDragController : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         _rectTransform.position = eventData.position;
 
-        Canvas dropZone = GameObject.Find("DropZone").GetComponent<Canvas>();
-        if (dropZone != null)
+        GameObject panel = GameObject.Find("PanelDeckList");
+        bool isPanelActive = panel != null && panel.activeInHierarchy;
 
+        if (!isPanelActive)
         {
-            dropZone.sortingOrder = 4500;
+            Canvas dropZone = GameObject.Find("DropZone")?.GetComponent<Canvas>();
+            dropZone.sortingOrder = 5000;
+        }
+        else 
+        {
+            //GameObject blockZone = GameObject.Find("BlockZone");
+
+            GameObject blockZone = Resources.FindObjectsOfTypeAll<GameObject>()
+                .FirstOrDefault(go => go.name == "BlockZone");
+
+            blockZone.SetActive(true);
         }
     }
 
@@ -38,11 +51,22 @@ public class CardDragController : MonoBehaviour, IBeginDragHandler, IDragHandler
         _rectTransform.position = _startPosition;
         transform.SetParent(_originalParent);
 
-        Canvas dropZone = GameObject.Find("DropZone").GetComponent<Canvas>();
-        if (dropZone != null)
+        GameObject panel = GameObject.Find("PanelDeckList");
+        bool isPanelActive = panel != null && panel.activeInHierarchy;
 
+        if (!isPanelActive)
         {
-            dropZone.sortingOrder = 3000;
+            Canvas dropZone = GameObject.Find("DropZone")?.GetComponent<Canvas>();
+            dropZone.sortingOrder = 0;
+        }
+        else 
+        {
+            //GameObject blockZone = GameObject.Find("BlockZone");
+
+            GameObject blockZone = Resources.FindObjectsOfTypeAll<GameObject>()
+                .FirstOrDefault(go => go.name == "BlockZone");
+
+            blockZone.SetActive(false);
         }
     }
 }

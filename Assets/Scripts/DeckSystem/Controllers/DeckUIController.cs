@@ -7,6 +7,7 @@ public class DeckUIController : MonoBehaviour
     [SerializeField] private GameObject _deckEditorPanel;
     [SerializeField] private GameObject _removeDeckPanel;
     [SerializeField] private GameObject _createDeckPanel;
+    [SerializeField] private GameObject _blockZone;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class DeckUIController : MonoBehaviour
         _deckEditorPanel.SetActive(false);
         _removeDeckPanel.SetActive(false);
         _createDeckPanel.SetActive(false);
+        _blockZone.SetActive(false);
     }
 
     public void ShowDeckEditorPanel()

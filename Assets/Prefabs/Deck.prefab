@@ -197,7 +197,6 @@ GameObject:
   - component: {fileID: 1218238981460476675}
   - component: {fileID: 314817646806908417}
   - component: {fileID: 478663609464889736}
-  - component: {fileID: 5066848455247465449}
   m_Layer: 5
   m_Name: DeckNameText
   m_TagString: Untagged
@@ -321,15 +320,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5066848455247465449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3116571682665502148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f79403b7dbf0854995fac2e4312f2a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
