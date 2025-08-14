@@ -34,13 +34,16 @@ public class CardDragController : MonoBehaviour, IBeginDragHandler, IDragHandler
         {
             Canvas dropZone = GameObject.Find("DropZone")?.GetComponent<Canvas>();
             dropZone.sortingOrder = 5000;
+
+            GameObject blockZone = Resources.FindObjectsOfTypeAll<GameObject>()
+                .FirstOrDefault(go => go.name == "BlockZoneCollection");
+
+            blockZone.SetActive(true);
         }
         else 
         {
-            //GameObject blockZone = GameObject.Find("BlockZone");
-
             GameObject blockZone = Resources.FindObjectsOfTypeAll<GameObject>()
-                .FirstOrDefault(go => go.name == "BlockZone");
+                .FirstOrDefault(go => go.name == "BlockZoneAll");
 
             blockZone.SetActive(true);
         }
@@ -58,13 +61,16 @@ public class CardDragController : MonoBehaviour, IBeginDragHandler, IDragHandler
         {
             Canvas dropZone = GameObject.Find("DropZone")?.GetComponent<Canvas>();
             dropZone.sortingOrder = 0;
+
+            GameObject blockZone = Resources.FindObjectsOfTypeAll<GameObject>()
+                .FirstOrDefault(go => go.name == "BlockZoneCollection");
+
+            blockZone.SetActive(false);
         }
         else 
         {
-            //GameObject blockZone = GameObject.Find("BlockZone");
-
             GameObject blockZone = Resources.FindObjectsOfTypeAll<GameObject>()
-                .FirstOrDefault(go => go.name == "BlockZone");
+                .FirstOrDefault(go => go.name == "BlockZoneAll");
 
             blockZone.SetActive(false);
         }

@@ -55,7 +55,7 @@ public class DeckCardPrefabController : MonoBehaviour, IPointerClickHandler
         {
             try 
             {
-                var request = new DeckCardDTO
+                var request = new DeckCardRemoveRequest
                 {
                     deckId = _deckId,
                     cardId = _cardId,

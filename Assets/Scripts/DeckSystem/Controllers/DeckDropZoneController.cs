@@ -26,7 +26,7 @@ public class DeckDropZoneController : MonoBehaviour, IDropHandler
     {
         try
         {
-            var request = new DeckCardDTO
+            var request = new DeckCardRequest
             {
                 deckId = deckId,
                 cardId = cardId,

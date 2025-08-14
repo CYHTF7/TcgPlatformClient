@@ -737,7 +737,7 @@ public static class ApiClient
     }
 
     //REMOVEDECKCARD
-    public static async Task RemoveCardFromDeckAsync(DeckCardDTO deckCardRequest) 
+    public static async Task RemoveCardFromDeckAsync(DeckCardRemoveRequest deckCardRequest) 
     {
         var url = "https://localhost:7193/api/deckcard/removedeckcard";
         var httpClient = new HttpClient();
@@ -766,7 +766,7 @@ public static class ApiClient
     }
 
     //ADDDECKCARD
-    public static async Task AddCardToDeckAsync(DeckCardDTO deckCardRequest)
+    public static async Task AddCardToDeckAsync(DeckCardRequest deckCardRequest)
     {
         var url = "https://localhost:7193/api/deckcard/adddeckcard";
         var httpClient = new HttpClient();
@@ -794,5 +794,31 @@ public static class ApiClient
         }
     }
 
+    public static async Task UpdateDeckCardOrderAsync(DeckCardOrderRequest deckCardOrderRequest)
+    {
+        var url = "https://localhost:7193/api/deckcard/updatedeckcardorder";
+        var httpClient = new HttpClient();
+        string json = JsonConvert.SerializeObject(deckCardOrderRequest);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
 
+        httpClient.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", AuthManager.Instance.AccessToken);
+
+        try
+        {
+            var response = await httpClient.PostAsync(url, content);
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.Log("DeckCard order updated successfully!");
+            }
+            else
+            {
+                Debug.LogError($"Failed to update order DeckCard: {await response.Content.ReadAsStringAsync()}");
+            }
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+        }
+    }
 }
