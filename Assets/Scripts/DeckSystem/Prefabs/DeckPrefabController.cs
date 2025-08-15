@@ -12,7 +12,7 @@ public class DeckPrefabController : MonoBehaviour, IPointerClickHandler
     private DeckRemoveController _deckRemoveController;
     private DeckUIEditorController _deckUIEditorController;
 
-    private Deck _deckData;
+    public Deck _deckData;
 
     private void Awake()
     {

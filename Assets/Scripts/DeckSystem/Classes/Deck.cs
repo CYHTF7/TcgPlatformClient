@@ -8,6 +8,7 @@ public class Deck
     public int DeckId { get; set; }   
     public string DeckName { get; set; }
     public int PlayerId { get; set; }
+    public int Order { get; set; }
 
     public List<DeckCard> Cards { get; set; }
 }

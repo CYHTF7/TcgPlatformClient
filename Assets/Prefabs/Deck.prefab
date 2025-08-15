@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 9110593966730824745}
   - component: {fileID: 7300937578580025193}
   - component: {fileID: 3257313315303541055}
+  - component: {fileID: 2915193069625356505}
+  - component: {fileID: 1471864423358557904}
   m_Layer: 5
   m_Name: Deck
   m_TagString: Untagged
@@ -37,10 +39,10 @@ RectTransform:
   - {fileID: 1218238981460476675}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4148054869525731356
 Canvas:
@@ -56,14 +58,14 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 9000
+  m_SortingOrder: 4000
   m_TargetDisplay: 0
 --- !u!114 &2157401648014692297
 MonoBehaviour:
@@ -186,6 +188,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deckNameText: {fileID: 478663609464889736}
+--- !u!114 &2915193069625356505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2898337482052333675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a48741b06c21a4db415aeb38750aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTransform: {fileID: 7339422676595970552}
+--- !u!114 &1471864423358557904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2898337482052333675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c73f31237b259044bb76a622f7eb6cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverSortingOrder: 6666
 --- !u!1 &3116571682665502148
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +248,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -1}
   m_SizeDelta: {x: 60, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &314817646806908417

@@ -829,4 +829,40 @@ public static class ApiClient
             Debug.LogError($"Request error: {e.Message}");
         }
     }
+
+    public static async Task UpdateDecksOrderAsync(List<DeckOrderRequest> deckOrderRequest)
+    {
+        var url = "https://localhost:7193/api/deck/updatedecksorder";
+        var httpClient = new HttpClient();
+
+        string json = JsonConvert.SerializeObject(deckOrderRequest);
+
+        Debug.Log($"Request JSON: {json}");
+
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        httpClient.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", AuthManager.Instance.AccessToken);
+
+        try
+        {
+            Debug.Log("Sending request to server...");
+
+            var response = await httpClient.PostAsync(url, content);
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.Log("Deck order updated successfully!");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.Log($"Server response: {responseContent}");
+            }
+            else
+            {
+                Debug.LogError($"Failed to update order Deck: {await response.Content.ReadAsStringAsync()}");
+            }
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError($"Request error: {e.Message}");
+        }
+    }
 }

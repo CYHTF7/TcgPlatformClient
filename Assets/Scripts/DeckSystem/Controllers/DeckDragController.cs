@@ -1,11 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class DeckCardDragController : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class DeckDragController : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     public RectTransform currentTransform;
     private GameObject mainContent;
@@ -42,6 +44,13 @@ public class DeckCardDragController : MonoBehaviour, IPointerDownHandler, IDragH
 
     public void OnDrag(PointerEventData eventData)
     {
+        Button button = GetComponent<Button>();
+
+        if (button != null)
+        {
+            button.interactable = false;
+        }
+
         float newY = eventData.position.y;
 
         newY = Mathf.Clamp(newY, minY, maxY);
@@ -73,11 +82,18 @@ public class DeckCardDragController : MonoBehaviour, IPointerDownHandler, IDragH
     {
         currentTransform.position = currentPossition;
         await SendOrderUpdate();
+
+        Button button = GetComponent<Button>();
+
+        if (button != null)
+        {
+            button.interactable = true;
+        }
     }
 
     private async Task SendOrderUpdate()
     {
-        var requests = new List<DeckCardOrderRequest>();
+        var requests = new List<DeckOrderRequest>();
 
         int childCount = mainContent.transform.childCount;
 
@@ -85,14 +101,13 @@ public class DeckCardDragController : MonoBehaviour, IPointerDownHandler, IDragH
         {
             Transform child = mainContent.transform.GetChild(i);
 
-            var cardController = child.GetComponent<DeckCardPrefabController>();
+            var cardController = child.GetComponent<DeckPrefabController>();
 
             if (cardController != null)
             {
-                requests.Add(new DeckCardOrderRequest
+                requests.Add(new DeckOrderRequest
                 {
-                    deckId = cardController._deckId,
-                    cardId = cardController._cardId,
+                    deckId = cardController._deckData.DeckId,
                     order = i
                 });
             }
@@ -100,18 +115,18 @@ public class DeckCardDragController : MonoBehaviour, IPointerDownHandler, IDragH
 
         try
         {
-            await ApiClient.UpdateDeckCardsOrderAsync(requests);
+            await ApiClient.UpdateDecksOrderAsync(requests);
 
-            DeckUIEditorController panelDeckEditor = Resources.FindObjectsOfTypeAll<DeckUIEditorController>()
-                .FirstOrDefault(go => go.name == "PanelDeckEditor");
+            DeckListController deckList = Resources.FindObjectsOfTypeAll<DeckListController>()
+                .FirstOrDefault(go => go.name == "PanelDeckList");
 
-            if (panelDeckEditor != null)
+            if (deckList != null)
             {
-                panelDeckEditor.RefreshDeck(requests[0].deckId);
+                await deckList.UpdateDeckListAsync();
             }
             else
             {
-                Debug.LogError($"DeckUIEditorController was not set!");
+                Debug.LogError($"DeckListController was not set!");
             }
 
             Debug.Log("Order update request completed successfully");
@@ -123,6 +138,4 @@ public class DeckCardDragController : MonoBehaviour, IPointerDownHandler, IDragH
         }
     }
 }
-
-
 

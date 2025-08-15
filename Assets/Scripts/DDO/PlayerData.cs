@@ -184,6 +184,7 @@ public class PlayerData : MonoBehaviour
                 DeckId = deckDTO.deckId,
                 DeckName = deckDTO.deckName,
                 PlayerId = deckDTO.playerId,
+                Order = deckDTO.order,
                 Cards = new List<DeckCard>()
             };
 
@@ -213,45 +214,3 @@ public class PlayerData : MonoBehaviour
         Debug.Log($"Updated decks. Total: {playerDecks.Count}");
     }
 }
-
-//public void SetUserDeckData(List<DeckLoadDTO> decks) mat be like this?
-//{
-//    if (Instance == null)
-//    {
-//        Debug.LogError("PlayerData.Instance is null!");
-//        return;
-//    }
-
-//    var newDecks = new List<Deck>(decks.Count);
-
-//    foreach (var deckDTO in decks)
-//    {
-//        var deck = new Deck
-//        {
-//            DeckId = deckDTO.deckId,
-//            DeckName = deckDTO.deckName,
-//            PlayerId = deckDTO.playerId,
-//            Cards = new List<DeckCard>(deckDTO.cards.Count)
-//        };
-
-//        foreach (var cardDTO in deckDTO.cards)
-//        {
-//            var foundCard = CardDataStorage.Instance.combinedCardList?
-//                .FirstOrDefault(c => c.CardId == cardDTO.cardId);
-
-//            if (foundCard != null)
-//            {
-//                deck.Cards.Add(new DeckCard
-//                {
-//                    CardId = foundCard.id,
-//                    Quantity = cardDTO.quantity
-//                });
-//            }
-//        }
-//        newDecks.Add(deck);
-//    }
-
-//    playerDecks = newDecks;
-
-//    Debug.Log($"Updated {playerDecks.Count} decks");
-//} 
