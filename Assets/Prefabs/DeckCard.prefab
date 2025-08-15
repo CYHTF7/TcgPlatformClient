@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1869023917631879061}
   - component: {fileID: 7540248637366699198}
   - component: {fileID: 1644269887785126992}
+  - component: {fileID: 6197388212954137971}
   m_Layer: 5
   m_Name: DeckCard
   m_TagString: Untagged
@@ -119,6 +120,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTransform: {fileID: 7339422676595970552}
+--- !u!114 &6197388212954137971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2898337482052333675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c73f31237b259044bb76a622f7eb6cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverSortingOrder: 6666
 --- !u!1 &3116571682665502148
 GameObject:
   m_ObjectHideFlags: 0

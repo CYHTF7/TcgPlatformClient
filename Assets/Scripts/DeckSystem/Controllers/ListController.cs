@@ -1,11 +1,10 @@
 using UnityEngine;
 
-
 public class ListController : MonoBehaviour
 {
-    [SerializeField] private int maxVisibleItems = 10;
+    [SerializeField] public int maxVisibleItems = 10;
 
-    private int currentStartIndex = 0;
+    public int currentStartIndex = 0;
     private int lastKnownChildCount = 0;
 
     private int TotalItems => transform.childCount;
@@ -63,5 +62,7 @@ public class ListController : MonoBehaviour
         ShowWindow();
     }
 }
+
+
 
 
