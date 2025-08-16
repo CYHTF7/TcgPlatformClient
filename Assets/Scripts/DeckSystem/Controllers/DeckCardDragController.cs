@@ -46,7 +46,7 @@ public class DeckCardDragController : MonoBehaviour, IPointerDownHandler, IDragH
 
         newY = Mathf.Clamp(newY, minY, maxY);
 
-        currentTransform.position = new Vector3(currentTransform.position.x, newY, currentTransform.position.z);
+        currentTransform.position = new Vector3(currentTransform.position.x, newY, currentTransform.position.z);       
 
         for (int i = 0; i < totalChild; i++)
         {
@@ -72,6 +72,7 @@ public class DeckCardDragController : MonoBehaviour, IPointerDownHandler, IDragH
     public async void OnPointerUp(PointerEventData eventData)
     {
         currentTransform.position = currentPossition;
+
         await SendOrderUpdate();
     }
 

@@ -22,9 +22,29 @@ public class ListController : MonoBehaviour
         else if (scroll < 0f) ScrollDown();
     }
 
+    //private void OnTransformChildrenChanged()
+    //{
+    //    UpdateList();
+    //}
+
     private void OnTransformChildrenChanged()
     {
-        UpdateList();
+        if (TotalItems != lastKnownChildCount)
+        {
+            bool wasAtBottom = (currentStartIndex >= lastKnownChildCount - maxVisibleItems);
+            lastKnownChildCount = TotalItems;
+
+            if (wasAtBottom && TotalItems > maxVisibleItems)
+            {
+                // Вместо прямого присвоения используем метод
+                while (currentStartIndex < TotalItems - maxVisibleItems)
+                {
+                    MoveDownOneStep();
+                }
+            }
+
+            UpdateList();
+        }
     }
 
     public void UpdateList()
@@ -61,6 +81,26 @@ public class ListController : MonoBehaviour
         if (currentStartIndex < 0) currentStartIndex = 0;
         ShowWindow();
     }
+
+    public void MoveUpOneStep()
+    {
+        if (currentStartIndex > 0)
+        {
+            currentStartIndex--;
+            ShowWindow();
+        }
+    }
+
+    public void MoveDownOneStep()
+    {
+        if (currentStartIndex < TotalItems - maxVisibleItems)
+        {
+            currentStartIndex++;
+            ShowWindow();
+        }
+    }
+
+
 }
 
 

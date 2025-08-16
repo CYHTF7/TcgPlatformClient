@@ -51,6 +51,28 @@ public class DeckCardPrefabController : MonoBehaviour, IPointerClickHandler
         string cardNameText = card.cardName;
 
         _deckCardNameText.text = $"x{Quantity} {cardNameText}";
+
+        switch (card.rarity)
+        {
+            case Rarity.Common:
+                _deckCardNameText.color = Color.white;
+                break;
+            case Rarity.Uncommon:
+                _deckCardNameText.color = new Color(0.1f, 0.8f, 0.2f);
+                break;
+            case Rarity.Rare:
+                _deckCardNameText.color = new Color(0.1f, 0.2f, 0.8f);
+                break;
+            case Rarity.Epic:
+                _deckCardNameText.color = new Color(0.6f, 0.2f, 0.8f);
+                break;
+            case Rarity.RareGold:
+                _deckCardNameText.color = new Color(1f, 0.5f, 0f);
+                break;
+            default:
+                _deckCardNameText.color = Color.white;
+                break;
+        }
     }
 
     public async void OnPointerClick(PointerEventData eventData)
