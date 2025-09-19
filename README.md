@@ -17,6 +17,7 @@ While it takes visual inspiration from World of Warcraft: Trading Card Game,
 - Card filtering by mana cost and ID
 - Card sorting by profile and all
 - Booster purchase and opening
+- Deck Editor (drag and drop)
 - Deck creation and deletion
 - Persistent storage of cards and boosters
 - UI components
@@ -27,8 +28,7 @@ While it takes visual inspiration from World of Warcraft: Trading Card Game,
 
 - Logout functionality
 - Refactoring
-- UI improvements and polishing
-- Deck Editor (drag and drop)
+- Moving logic to TcgPlatformServer
 
 ## 🚀 How to Install
 
@@ -55,5 +55,7 @@ It will include usage instructions, system overviews, and extension guidelines.
 ![02](https://github.com/user-attachments/assets/67ff36bc-9c6d-47ba-802d-243e5a59c95c)
 ![03](https://github.com/user-attachments/assets/2d0e49b9-e694-4ca2-982b-0d2f9b0fef58)
 ![04](https://github.com/user-attachments/assets/359484be-26c9-4194-9022-c6a83a883f42)
+![05](https://github.com/user-attachments/assets/598fec65-0174-42d8-a1e4-368d13962a5b)
+![06](https://github.com/user-attachments/assets/9b00bfda-11e4-4ca7-b0a9-121c05e31860)
 
 *OBS did not record the selection window.*
